@@ -1,0 +1,394 @@
+/* =========================================
+   1. LES COULEURS DU SITE (variables)
+   ========================================= */
+   :root {
+    --vert-fonce: #0b3d3a;
+    --vert: #127c71;
+    --vert-clair: #d8f1ec;
+    --corail: #ff7a59;
+    --creme: #faf7f2;
+    --texte: #1f2d2a;
+    --blanc: #ffffff;
+    --ombre: 0 8px 20px rgba(11, 61, 58, 0.12);
+}
+
+/* =========================================
+   2. LA PAGE ENTIÈRE
+   ========================================= */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background-color: var(--creme);
+    color: var(--texte);
+    line-height: 1.7;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* =========================================
+   3. LE HEADER (la bannière)
+   ========================================= */
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--blanc);
+    background: linear-gradient(120deg, var(--vert-fonce), var(--vert), var(--vert-fonce));
+    background-size: 300% 300%;
+    animation: degrade-mouvant 12s ease infinite;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.8rem;
+    letter-spacing: 2px;
+    animation: apparition 1s ease-out;
+}
+
+header p {
+    margin: 10px 0 0;
+    font-size: 1.2rem;
+    font-style: italic;
+    opacity: 0.9;
+    animation: apparition 1.6s ease-out;
+}
+
+/* =========================================
+   4. LE MENU (nav)
+   ========================================= */
+nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 15px 20px;
+    background-color: var(--vert-fonce);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+nav a {
+    position: relative;
+    color: var(--blanc);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 0;
+}
+
+/* La petite ligne corail qui grandit sous le lien au survol */
+nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--corail);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+nav a:hover::after {
+    transform: scaleX(1);
+}
+
+/* Le lien "Accueil" a un style à part (sélecteur d'attribut) */
+nav a[href="index.html"] {
+    color: var(--corail);
+}
+
+/* =========================================
+   5. LE CONTENU PRINCIPAL (main)
+   ========================================= */
+main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+    flex: 1;
+}
+
+/* L'ordre d'affichage des boîtes */
+#presentation { order: 1; flex: 2 1 550px; }
+aside         { order: 2; flex: 1 1 300px; }
+#liste        { order: 3; flex: 1 1 100%; }
+#competences  { order: 4; flex: 1 1 100%; }
+
+/* Toutes les sections qui sont directement dans main */
+main > section {
+    background-color: var(--blanc);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: var(--ombre);
+}
+
+/* Les titres h2 avec une petite barre décorative dessous */
+h2 {
+    color: var(--vert-fonce);
+    margin-top: 0;
+}
+
+h2::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 4px;
+    margin-top: 8px;
+    border-radius: 2px;
+    background-color: var(--corail);
+}
+
+/* =========================================
+   6. SECTION PRÉSENTATION : les articles
+   ========================================= */
+#presentation {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+#presentation h2 {
+    flex-basis: 100%;
+}
+
+#presentation article {
+    flex: 1 1 250px;
+    padding: 20px;
+    border-left: 5px solid var(--vert);
+    border-radius: 0 12px 12px 0;
+    background-color: var(--vert-clair);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#presentation article:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--ombre);
+}
+
+article h3 {
+    margin-top: 0;
+    color: var(--vert);
+}
+
+/* =========================================
+   7. SECTION LISTE DES MÉTIERS
+   ========================================= */
+#liste > p {
+    font-style: italic;
+    color: var(--vert);
+}
+
+#liste dl {
+    counter-reset: metier;
+}
+
+/* Le nom du métier, avec un numéro automatique 01, 02, 03 */
+#liste dt {
+    counter-increment: metier;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--blanc);
+    background-color: var(--vert);
+    padding: 10px 20px;
+    border-radius: 12px 12px 0 0;
+}
+
+#liste dt::before {
+    content: "0" counter(metier) " · ";
+    color: var(--corail);
+}
+
+#liste dd {
+    margin: 0 0 25px 0;
+    padding: 15px 20px;
+    border: 2px solid var(--vert-clair);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    transition: background-color 0.3s ease;
+}
+
+#liste dd:hover {
+    background-color: var(--vert-clair);
+}
+
+/* "Technologie responsable" en couleur corail */
+#liste dd strong {
+    color: var(--corail);
+}
+
+/* =========================================
+   8. SECTION COMPÉTENCES
+   ========================================= */
+#competences ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#competences li {
+    padding: 12px 15px 12px 45px;
+    position: relative;
+    border-radius: 10px;
+    background-color: var(--creme);
+    transition: transform 0.3s ease;
+}
+
+/* Une coche verte devant chaque compétence */
+#competences li::before {
+    content: "✔";
+    position: absolute;
+    left: 15px;
+    color: var(--vert);
+    font-weight: bold;
+}
+
+#competences li:hover {
+    transform: translateX(8px);
+}
+
+/* Une ligne sur deux a un fond différent */
+#competences li:nth-child(even) {
+    background-color: var(--vert-clair);
+}
+
+/* =========================================
+   9. ASIDE : la vidéo
+   ========================================= */
+aside {
+    background-color: var(--vert-fonce);
+    color: var(--blanc);
+    border-radius: 16px;
+    padding: 25px;
+    align-self: flex-start;
+    box-shadow: var(--ombre);
+}
+
+aside h2 {
+    color: var(--blanc);
+}
+
+aside iframe {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border: none;
+    border-radius: 10px;
+}
+
+/* =========================================
+   10. LE FOOTER
+   ========================================= */
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 30px 20px;
+    background-color: var(--vert-fonce);
+    color: var(--vert-clair);
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px 30px;
+}
+
+footer a {
+    color: var(--blanc);
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: var(--corail);
+}
+
+/* Petite flèche après les liens vers d'autres sites */
+footer a[href^="https"]::after {
+    content: " ↗";
+}
+
+footer small {
+    opacity: 0.7;
+}
+
+/* =========================================
+   11. LES ANIMATIONS (keyframes)
+   ========================================= */
+@keyframes degrade-mouvant {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes apparition {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================
+   12. RESPONSIVE (petits écrans)
+   ========================================= */
+
+/* Tablettes */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    nav {
+        gap: 15px;
+    }
+
+    main {
+        width: 95%;
+    }
+
+    #presentation,
+    aside {
+        flex-basis: 100%;
+    }
+}
+
+/* Téléphones */
+@media (max-width: 480px) {
+    header {
+        padding: 40px 15px;
+    }
+
+    header h1 {
+        font-size: 1.6rem;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+
+    main > section {
+        padding: 20px;
+    }
+}
